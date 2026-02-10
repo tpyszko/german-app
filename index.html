@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Der vs Den? - German Case Chaos! 🎮</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Fredoka', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .game-container {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            max-width: 700px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8em;
+            color: #667eea;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 12px;
+            text-align: center;
+            flex: 1;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .stat-label {
+            font-size: 0.75em;
+            opacity: 0.9;
+        }
+
+        .stat-value {
+            font-size: 1.5em;
+            font-weight: 700;
+            margin-top: 2px;
+        }
+
+        .question-area {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            color: white;
+            box-shadow: 0 10px 30px rgba(245, 87, 108, 0.3);
+            animation: questionPop 0.4s ease-out;
+        }
+
+        @keyframes questionPop {
+            0% {
+                transform: scale(0.95);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.02);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .case-label {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .sentence {
+            font-size: 1.25em;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+
+        .blank {
+            display: inline-block;
+            min-width: 100px;
+            border-bottom: 3px dashed white;
+            padding: 0 10px;
+            margin: 0 5px;
+        }
+
+        .hint {
+            font-size: 0.85em;
+            opacity: 0.9;
+            margin-top: 8px;
+            font-style: italic;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .option-btn {
+            background: white;
+            border: 3px solid #667eea;
+            color: #667eea;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Fredoka', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            background: #667eea;
+            color: white;
+        }
+
+        .option-btn:active {
+            transform: translateY(-2px);
+        }
+
+        .option-btn.correct {
+            background: #10b981;
+            border-color: #10b981;
+            color: white;
+            animation: correctShake 0.5s ease;
+        }
+
+        .option-btn.wrong {
+            background: #ef4444;
+            border-color: #ef4444;
+            color: white;
+            animation: wrongShake 0.5s ease;
+        }
+
+        @keyframes correctShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px) rotate(-5deg); }
+            75% { transform: translateX(10px) rotate(5deg); }
+        }
+
+        @keyframes wrongShake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        .feedback {
+            background: #f0f9ff;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            border-left: 4px solid #3b82f6;
+            display: none;
+            animation: feedbackSlide 0.3s ease-out;
+        }
+
+        @keyframes feedbackSlide {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .feedback.show {
+            display: block;
+        }
+
+        .feedback.correct {
+            background: #f0fdf4;
+            border-color: #10b981;
+        }
+
+        .feedback.wrong {
+            background: #fef2f2;
+            border-color: #ef4444;
+        }
+
+        .feedback-text {
+            font-size: 1em;
+            color: #334155;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .explanation {
+            font-size: 0.85em;
+            color: #64748b;
+            line-height: 1.4;
+        }
+
+        .next-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 12px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            font-family: 'Fredoka', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            display: none;
+        }
+
+        .next-btn.show {
+            display: block;
+        }
+
+        .next-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        .game-over {
+            text-align: center;
+            display: none;
+        }
+
+        .game-over.show {
+            display: block;
+        }
+
+        .game-over h2 {
+            font-size: 2em;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .final-score {
+            font-size: 3em;
+            font-weight: 700;
+            color: #f5576c;
+            margin: 15px 0;
+        }
+
+        .restart-btn {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 12px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Fredoka', sans-serif;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .restart-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(245, 87, 108, 0.4);
+        }
+
+        .emoji {
+            font-size: 1.2em;
+        }
+
+        .chapter-select {
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .chapter-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .chapter-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 20px;
+            border-radius: 15px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.5);
+        }
+
+        .chapter-card.locked {
+            background: linear-gradient(135deg, #9ca3af, #6b7280);
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .chapter-card.locked:hover {
+            transform: none;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .chapter-number {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+
+        .chapter-title {
+            font-size: 1.4em;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .chapter-desc {
+            font-size: 0.95em;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .chapter-difficulty {
+            font-size: 0.85em;
+            opacity: 0.8;
+        }
+
+        .back-btn {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 10px;
+            font-size: 0.9em;
+            cursor: pointer;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #764ba2;
+            transform: translateX(-3px);
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            .game-container {
+                padding: 15px;
+                border-radius: 15px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            .subtitle {
+                font-size: 0.8em;
+            }
+
+            .sentence {
+                font-size: 1.1em;
+            }
+
+            .option-btn {
+                padding: 12px;
+                font-size: 1em;
+            }
+
+            .stat-box {
+                padding: 8px 12px;
+            }
+
+            .stat-value {
+                font-size: 1.3em;
+            }
+
+            .question-area {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <!-- Chapter Selection Screen -->
+        <div id="chapter-select" class="chapter-select">
+            <div class="header">
+                <h1>German Grammar Game <span class="emoji">🎮</span></h1>
+                <div class="subtitle">Choose your chapter!</div>
+            </div>
+
+            <div class="chapter-grid">
+                <div class="chapter-card" onclick="startChapter(1)">
+                    <div class="chapter-number">Chapter 1</div>
+                    <div class="chapter-title">Nominative vs Accusative</div>
+                    <div class="chapter-desc">Master der/den/das/die + adjectives</div>
+                    <div class="chapter-difficulty">⭐⭐ Medium</div>
+                </div>
+
+                <div class="chapter-card" onclick="startChapter(2)">
+                    <div class="chapter-number">Chapter 2</div>
+                    <div class="chapter-title">Plural Power! 📦</div>
+                    <div class="chapter-desc">Learn everyday plural forms</div>
+                    <div class="chapter-difficulty">⭐ Easy</div>
+                </div>
+
+                <div class="chapter-card" onclick="startChapter(3)">
+                    <div class="chapter-number">Chapter 3</div>
+                    <div class="chapter-title">Plurals + Articles 🔤</div>
+                    <div class="chapter-desc">Die/keine/meine + plural nouns</div>
+                    <div class="chapter-difficulty">⭐⭐ Medium</div>
+                </div>
+
+                <div class="chapter-card" onclick="startChapter(4)">
+                    <div class="chapter-number">Chapter 4</div>
+                    <div class="chapter-title">Food & Drinks 🍕</div>
+                    <div class="chapter-desc">Order food like a native!</div>
+                    <div class="chapter-difficulty">⭐ Easy</div>
+                </div>
+
+                <div class="chapter-card" onclick="startChapter(5)">
+                    <div class="chapter-number">Chapter 5</div>
+                    <div class="chapter-title">Time & Routine ⏰</div>
+                    <div class="chapter-desc">Hours, days, time expressions</div>
+                    <div class="chapter-difficulty">⭐⭐ Medium</div>
+                </div>
+
+                <div class="chapter-card" onclick="startChapter(6)">
+                    <div class="chapter-number">Chapter 6</div>
+                    <div class="chapter-title">Modal Verbs 💪</div>
+                    <div class="chapter-desc">Können, möchten, müssen, wollen</div>
+                    <div class="chapter-difficulty">⭐⭐ Medium</div>
+                </div>
+
+                <div class="chapter-card locked">
+                    <div class="chapter-number">More Soon!</div>
+                    <div class="chapter-title">Coming Soon! 🔒</div>
+                    <div class="chapter-desc">More chapters coming...</div>
+                    <div class="chapter-difficulty">⭐⭐⭐ Hard</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="game-screen" style="display: none;">
+        <div class="header">
+            <div class="back-btn" onclick="backToChapters()">← Chapters</div>
+            <h1 id="chapter-title">Der vs Den? <span class="emoji">🎮</span></h1>
+            <div class="subtitle" id="chapter-subtitle">Master German cases like a boss!</div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-label">Score</div>
+                <div class="stat-value" id="score">0</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Streak</div>
+                <div class="stat-value" id="streak">0</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Question</div>
+                <div class="stat-value"><span id="current">1</span>/<span id="total">15</span></div>
+            </div>
+        </div>
+
+        <div id="game-area">
+            <div class="question-area" id="question-area">
+                <div class="case-label" id="case-label">📍 Nominative or Accusative?</div>
+                <div class="sentence" id="sentence"></div>
+                <div class="hint" id="hint"></div>
+            </div>
+
+            <div class="options" id="options"></div>
+
+            <div class="feedback" id="feedback">
+                <div class="feedback-text" id="feedback-text"></div>
+                <div class="explanation" id="explanation"></div>
+            </div>
+
+            <button class="next-btn" id="next-btn">Next Question →</button>
+        </div>
+
+        <div class="game-over" id="game-over">
+            <h2>Game Over! <span class="emoji">🎉</span></h2>
+            <div class="final-score" id="final-score"></div>
+            <div class="explanation" id="final-message"></div>
+            <button class="restart-btn" onclick="restartGame()">Play Again! 🔄</button>
+        </div>
+        </div>
+        <!-- End Game Screen -->
+    </div>
+
+    <script>
+        const chapters = {
+            1: {
+                title: "Nominative vs Accusative",
+                subtitle: "Master der/den/das/die + adjectives",
+                questions: [
+                    {
+                        sentence: "Ich sehe ___ alten Hund.",
+                        options: ["den", "der", "dem"],
+                        correct: "den",
+                        hint: "You're SEEING something → accusative + adjective!",
+                        explanation: "After 'sehen' (to see), you use accusative. Der → Den! And 'alt' becomes 'alten' because of the -en ending rule! 🐕"
+                    },
+                    {
+                        sentence: "Das ist ___ neue Katze.",
+                        options: ["eine", "ein", "einen"],
+                        correct: "eine",
+                        hint: "The cat IS something → nominative, and feminine!",
+                        explanation: "Use 'eine' for 'a new cat' in nominative. Die Katze is feminine, so it's 'eine'! 'Neu' becomes 'neue'. 😸"
+                    },
+                    {
+                        sentence: "Ich habe ___ modernen Computer.",
+                        options: ["einen", "ein", "einem"],
+                        correct: "einen",
+                        hint: "You HAVE something → accusative changes ein!",
+                        explanation: "After 'haben', use accusative. Ein → Einen! And 'modern' becomes 'modernen' with the -en ending! 💻"
+                    },
+                    {
+                        sentence: "Ich sehe ___ alten Bücher.",
+                        options: ["die", "den", "der"],
+                        correct: "die",
+                        hint: "PLURAL! Check the plural form!",
+                        explanation: "Plural is always 'die' in both nominative AND accusative! 'Alt' becomes 'alten' in plural. 📚"
+                    },
+                    {
+                        sentence: "Ich esse ___ großen Apfel.",
+                        options: ["einen", "ein", "eine"],
+                        correct: "einen",
+                        hint: "You're EATING something → accusative!",
+                        explanation: "After 'essen', use accusative. Ein → Einen! 'Groß' becomes 'großen'. The apple is getting eaten! 🍎"
+                    },
+                    {
+                        sentence: "___ neue Lehrer ist nett.",
+                        options: ["Der", "Den", "Die"],
+                        correct: "Der",
+                        hint: "The teacher IS nice → nominative!",
+                        explanation: "The teacher is the subject! Use 'der' for nominative. 'Neu' becomes 'neue' but the article stays 'der'! 👨‍🏫"
+                    },
+                    {
+                        sentence: "Ich kaufe ___ schönes Buch.",
+                        options: ["ein", "einen", "eine"],
+                        correct: "ein",
+                        hint: "BUCH is neuter! Watch the gender!",
+                        explanation: "Tricky! 'Das Buch' is neuter, so 'ein' stays the same. 'Schön' becomes 'schönes' for neuter! 📚"
+                    },
+                    {
+                        sentence: "Ich sehe ___ kleine Katze.",
+                        options: ["eine", "einen", "ein"],
+                        correct: "eine",
+                        hint: "DIE KATZE is feminine!",
+                        explanation: "Yes! 'Die Katze' is feminine, so 'eine' stays the same in accusative. 'Klein' becomes 'kleine'! 🐱"
+                    },
+                    {
+                        sentence: "Ich habe ___ guten Freund.",
+                        options: ["einen", "ein", "eine"],
+                        correct: "einen",
+                        hint: "You HAVE a friend → accusative!",
+                        explanation: "After 'haben', use accusative. Ein → Einen! 'Gut' becomes 'guten'. Your friend is the object here! 👋"
+                    },
+                    {
+                        sentence: "Das sind ___ neuen Freunde.",
+                        options: ["meine", "meinen", "mein"],
+                        correct: "meine",
+                        hint: "PLURAL + they ARE friends → nominative!",
+                        explanation: "Nominative plural is 'meine' not 'meinen'! Use 'meinen' only in accusative plural with 'die'. 'Neu' becomes 'neuen' in plural! 👋"
+                    },
+                    {
+                        sentence: "Ich liebe ___ neuen Film.",
+                        options: ["den", "der", "dem"],
+                        correct: "den",
+                        hint: "You LOVE something → accusative!",
+                        explanation: "After 'lieben', use accusative. Der → Den! 'Neu' becomes 'neuen' with the -en ending! 🎬"
+                    },
+                    {
+                        sentence: "Ich finde ___ alte Buch interessant.",
+                        options: ["das", "den", "dem"],
+                        correct: "das",
+                        hint: "BUCH is neuter! Das stays das!",
+                        explanation: "Neuter articles (das) don't change in accusative! 'Alt' becomes 'alte' for neuter. Easy one! 📖"
+                    },
+                    {
+                        sentence: "Ich brauche ___ neues Handy.",
+                        options: ["ein", "einen", "eine"],
+                        correct: "ein",
+                        hint: "HANDY is neuter in German!",
+                        explanation: "Tricky! 'Das Handy' is neuter, so 'ein' stays the same. 'Neu' becomes 'neues'. Germans say 'das Handy'! 📱"
+                    },
+                    {
+                        sentence: "Das ist ___ modernes Haus.",
+                        options: ["mein", "meinen", "meine"],
+                        correct: "mein",
+                        hint: "The house IS modern → nominative!",
+                        explanation: "Use 'mein' in nominative. 'Modern' becomes 'modernes' for neuter. The house is just being, not being done to! 🏠"
+                    },
+                    {
+                        sentence: "Ich sehe ___ schönen Park.",
+                        options: ["einen", "ein", "eine"],
+                        correct: "einen",
+                        hint: "You're SEEING something → accusative!",
+                        explanation: "After 'sehen', use accusative. Ein → Einen! 'Schön' becomes 'schönen'. You're seeing the park! 🌳"
+                    },
+                    {
+                        sentence: "___ alten Autos sind teuer.",
+                        options: ["Die", "Den", "Der"],
+                        correct: "Die",
+                        hint: "PLURAL + they ARE expensive → nominative!",
+                        explanation: "Plural nominative is 'die'! The cars are the subject being expensive. 'Alt' becomes 'alten' in plural! 🚗"
+                    },
+                    {
+                        sentence: "Ich sehe ___ modernen Häuser.",
+                        options: ["die", "das", "den"],
+                        correct: "die",
+                        hint: "PLURAL! Always die in accusative!",
+                        explanation: "Plural accusative is 'die'! Same as nominative. 'Modern' becomes 'modernen' in plural. 🏠"
+                    },
+                    {
+                        sentence: "Ich habe ___ schöne Idee.",
+                        options: ["eine", "ein", "einen"],
+                        correct: "eine",
+                        hint: "DIE IDEE is feminine!",
+                        explanation: "Feminine noun! 'Eine' stays 'eine' in accusative. 'Schön' becomes 'schöne'. Easy one! 💡"
+                    }
+                ]
+            },
+            2: {
+                title: "Plural Power! 📦",
+                subtitle: "Learn everyday plural forms",
+                questions: [
+                    {
+                        sentence: "Ich habe zwei ___.",
+                        options: ["Kinder", "Kinds", "Kind"],
+                        correct: "Kinder",
+                        hint: "Kind → Kinder (most common plural!)",
+                        explanation: "Kind → Kinder! This is super common. 'I have two children.' Remember: die Kinder! 👶"
+                    },
+                    {
+                        sentence: "Wo sind meine ___?",
+                        options: ["Schuhe", "Schuh", "Schuhen"],
+                        correct: "Schuhe",
+                        hint: "Schuh → Schuhe (add -e)",
+                        explanation: "Schuh → Schuhe! Just add -e. 'Where are my shoes?' Die Schuhe! 👟"
+                    },
+                    {
+                        sentence: "Ich brauche drei ___.",
+                        options: ["Äpfel", "Apfels", "Apfel"],
+                        correct: "Äpfel",
+                        hint: "Apfel → Äpfel (umlaut change!)",
+                        explanation: "Apfel → Äpfel! The 'a' becomes 'ä' (umlaut). 'I need three apples.' Die Äpfel! 🍎"
+                    },
+                    {
+                        sentence: "Die ___ sind groß.",
+                        options: ["Häuser", "Haus", "Hausen"],
+                        correct: "Häuser",
+                        hint: "Haus → Häuser (umlaut + -er)",
+                        explanation: "Haus → Häuser! Umlaut + add -er. 'The houses are big.' Die Häuser! 🏠"
+                    },
+                    {
+                        sentence: "Ich habe viele ___.",
+                        options: ["Freunde", "Freunds", "Freund"],
+                        correct: "Freunde",
+                        hint: "Freund → Freunde (add -e)",
+                        explanation: "Freund → Freunde! Just add -e. 'I have many friends.' Die Freunde! 👥"
+                    },
+                    {
+                        sentence: "Die ___ sind teuer.",
+                        options: ["Autos", "Auto", "Autoen"],
+                        correct: "Autos",
+                        hint: "Auto → Autos (add -s, easy!)",
+                        explanation: "Auto → Autos! Just add -s (like English!). 'The cars are expensive.' Die Autos! 🚗"
+                    },
+                    {
+                        sentence: "Ich sehe zwei ___.",
+                        options: ["Katzen", "Katze", "Katzes"],
+                        correct: "Katzen",
+                        hint: "Katze → Katzen (add -n)",
+                        explanation: "Katze → Katzen! Just add -n. 'I see two cats.' Die Katzen! 🐱"
+                    },
+                    {
+                        sentence: "Die ___ spielen im Park.",
+                        options: ["Kinder", "Kindern", "Kind"],
+                        correct: "Kinder",
+                        hint: "Nominative plural! (they are playing)",
+                        explanation: "Nominative plural is 'Kinder' not 'Kindern'! 'The children play in the park.' Die Kinder! 🎮"
+                    },
+                    {
+                        sentence: "Ich kaufe vier ___.",
+                        options: ["Bücher", "Buch", "Buchen"],
+                        correct: "Bücher",
+                        hint: "Buch → Bücher (umlaut + -er)",
+                        explanation: "Buch → Bücher! Umlaut + add -er. 'I'm buying four books.' Die Bücher! 📚"
+                    },
+                    {
+                        sentence: "Die ___ sind lecker!",
+                        options: ["Bananen", "Banana", "Banane"],
+                        correct: "Bananen",
+                        hint: "Banane → Bananen (add -n)",
+                        explanation: "Banane → Bananen! Add -n. 'The bananas are delicious!' Die Bananen! 🍌"
+                    },
+                    {
+                        sentence: "Ich habe zwei ___.",
+                        options: ["Hände", "Hand", "Händen"],
+                        correct: "Hände",
+                        hint: "Hand → Hände (umlaut + -e)",
+                        explanation: "Hand → Hände! Umlaut + add -e. 'I have two hands.' Die Hände! ✋"
+                    },
+                    {
+                        sentence: "Die ___ sind im Garten.",
+                        options: ["Blumen", "Blume", "Blumes"],
+                        correct: "Blumen",
+                        hint: "Blume → Blumen (add -n)",
+                        explanation: "Blume → Blumen! Add -n. 'The flowers are in the garden.' Die Blumen! 🌸"
+                    },
+                    {
+                        sentence: "Ich esse gern ___.",
+                        options: ["Tomaten", "Tomate", "Tomatos"],
+                        correct: "Tomaten",
+                        hint: "Tomate → Tomaten (add -n)",
+                        explanation: "Tomate → Tomaten! Add -n. 'I like eating tomatoes.' Die Tomaten! 🍅"
+                    },
+                    {
+                        sentence: "Die ___ sind sehr nett.",
+                        options: ["Lehrer", "Lehrers", "Lehrerin"],
+                        correct: "Lehrer",
+                        hint: "Lehrer → Lehrer (no change!)",
+                        explanation: "Lehrer → Lehrer! It stays the same! 'The teachers are very nice.' Die Lehrer! 👨‍🏫"
+                    },
+                    {
+                        sentence: "Ich habe drei ___.",
+                        options: ["Brüder", "Bruder", "Brüdern"],
+                        correct: "Brüder",
+                        hint: "Bruder → Brüder (umlaut change)",
+                        explanation: "Bruder → Brüder! The 'u' becomes 'ü' (umlaut). 'I have three brothers.' Die Brüder! 👦"
+                    }
+                ]
+            },
+            3: {
+                title: "Plurals + Articles 🔤",
+                subtitle: "Die/keine/meine + plural nouns",
+                questions: [
+                    {
+                        sentence: "Ich sehe ___ Kinder im Park.",
+                        options: ["die", "der", "das"],
+                        correct: "die",
+                        hint: "PLURAL! Always 'die' in accusative!",
+                        explanation: "Plural accusative is always 'die'! 'I see the children in the park.' Die Kinder! 👶"
+                    },
+                    {
+                        sentence: "Ich habe ___ Schuhe.",
+                        options: ["keine", "kein", "kein"],
+                        correct: "keine",
+                        hint: "PLURAL + negative! Kein → keine",
+                        explanation: "Plural with 'kein' (no/not any) is 'keine'! 'I have no shoes.' Keine Schuhe! 👟"
+                    },
+                    {
+                        sentence: "Das sind ___ Freunde.",
+                        options: ["meine", "mein", "meinen"],
+                        correct: "meine",
+                        hint: "PLURAL + possessive! Mein → meine",
+                        explanation: "Plural with 'mein' (my) is 'meine'! 'These are my friends.' Meine Freunde! 👥"
+                    },
+                    {
+                        sentence: "___ Bücher sind interessant.",
+                        options: ["Die", "Der", "Den"],
+                        correct: "Die",
+                        hint: "PLURAL nominative! Always 'die'",
+                        explanation: "Plural nominative is 'die'! 'The books are interesting.' Die Bücher! 📚"
+                    },
+                    {
+                        sentence: "Ich brauche ___ Äpfel.",
+                        options: ["keine", "kein", "kein"],
+                        correct: "keine",
+                        hint: "PLURAL negative in accusative!",
+                        explanation: "Plural accusative with 'kein' is 'keine'! 'I need no apples.' Keine Äpfel! 🍎"
+                    },
+                    {
+                        sentence: "Wo sind ___ Kinder?",
+                        options: ["deine", "dein", "deinen"],
+                        correct: "deine",
+                        hint: "PLURAL + possessive 'your'!",
+                        explanation: "Plural with 'dein' (your) is 'deine'! 'Where are your children?' Deine Kinder! 👶"
+                    },
+                    {
+                        sentence: "Ich kaufe ___ Tomaten.",
+                        options: ["die", "das", "das"],
+                        correct: "die",
+                        hint: "PLURAL accusative! Always die",
+                        explanation: "Plural accusative is 'die'! 'I'm buying the tomatoes.' Die Tomaten! 🍅"
+                    },
+                    {
+                        sentence: "___ Autos sind teuer.",
+                        options: ["Die", "Das", "Den"],
+                        correct: "Die",
+                        hint: "PLURAL nominative! Always die",
+                        explanation: "Plural nominative is 'die'! 'The cars are expensive.' Die Autos! 🚗"
+                    },
+                    {
+                        sentence: "Das sind ___ Blumen.",
+                        options: ["keine", "kein", "kein"],
+                        correct: "keine",
+                        hint: "PLURAL negative nominative!",
+                        explanation: "Plural nominative with 'kein' is 'keine'! 'These are no flowers.' Keine Blumen! 🌸"
+                    },
+                    {
+                        sentence: "Ich liebe ___ Katzen.",
+                        options: ["meine", "mein", "mein"],
+                        correct: "meine",
+                        hint: "PLURAL possessive accusative!",
+                        explanation: "Plural accusative with 'mein' is 'meine'! 'I love my cats.' Meine Katzen! 🐱"
+                    },
+                    {
+                        sentence: "___ Lehrer sind nett.",
+                        options: ["Die", "Der", "Den"],
+                        correct: "Die",
+                        hint: "PLURAL nominative! The teachers ARE nice",
+                        explanation: "Plural nominative is 'die'! 'The teachers are nice.' Die Lehrer! 👨‍🏫"
+                    },
+                    {
+                        sentence: "Ich habe ___ Geschwister.",
+                        options: ["keine", "kein", "kein"],
+                        correct: "keine",
+                        hint: "PLURAL negative! No siblings",
+                        explanation: "Plural with 'kein' is 'keine'! 'I have no siblings.' Keine Geschwister! 👦👧"
+                    },
+                    {
+                        sentence: "Wo sind ___ Schlüssel?",
+                        options: ["meine", "mein", "mein"],
+                        correct: "meine",
+                        hint: "PLURAL possessive! My keys",
+                        explanation: "Plural with 'mein' is 'meine'! 'Where are my keys?' Meine Schlüssel! 🔑"
+                    },
+                    {
+                        sentence: "Ich esse ___ Bananen.",
+                        options: ["die", "der", "der"],
+                        correct: "die",
+                        hint: "PLURAL accusative! I'm eating them",
+                        explanation: "Plural accusative is 'die'! 'I eat the bananas.' Die Bananen! 🍌"
+                    },
+                    {
+                        sentence: "___ Häuser sind groß.",
+                        options: ["Die", "Das", "Das"],
+                        correct: "Die",
+                        hint: "PLURAL nominative! They ARE big",
+                        explanation: "Plural nominative is 'die'! 'The houses are big.' Die Häuser! 🏠"
+                    }
+                ]
+            },
+            4: {
+                title: "Food & Drinks 🍕",
+                subtitle: "Order food like a native!",
+                questions: [
+                    {
+                        sentence: "Ich möchte ___ Pizza.",
+                        options: ["eine", "ein", "ein"],
+                        correct: "eine",
+                        hint: "DIE PIZZA is feminine!",
+                        explanation: "Die Pizza is feminine! 'I would like a pizza.' Eine Pizza! 🍕"
+                    },
+                    {
+                        sentence: "Ich trinke ___ Wasser.",
+                        options: ["das", "die", "der"],
+                        correct: "das",
+                        hint: "DAS WASSER is neuter!",
+                        explanation: "Das Wasser is neuter! 'I drink the water.' Das Wasser! 💧"
+                    },
+                    {
+                        sentence: "Ich hätte gern ___ Kaffee.",
+                        options: ["einen", "ein", "ein"],
+                        correct: "einen",
+                        hint: "DER KAFFEE is masculine + accusative!",
+                        explanation: "Der Kaffee is masculine, accusative = einen! 'I would like a coffee.' Einen Kaffee! ☕"
+                    },
+                    {
+                        sentence: "Ich esse ___ Brot.",
+                        options: ["das", "den", "dem"],
+                        correct: "das",
+                        hint: "DAS BROT is neuter! Stays same",
+                        explanation: "Das Brot is neuter, stays 'das' in accusative! 'I eat the bread.' Das Brot! 🍞"
+                    },
+                    {
+                        sentence: "Ich kaufe ___ Milch.",
+                        options: ["die", "der", "der"],
+                        correct: "die",
+                        hint: "DIE MILCH is feminine!",
+                        explanation: "Die Milch is feminine, stays 'die' in accusative! 'I buy the milk.' Die Milch! 🥛"
+                    },
+                    {
+                        sentence: "Ich brauche ___ Tee.",
+                        options: ["einen", "ein", "ein"],
+                        correct: "einen",
+                        hint: "DER TEE is masculine!",
+                        explanation: "Der Tee is masculine, accusative = einen! 'I need a tea.' Einen Tee! 🍵"
+                    },
+                    {
+                        sentence: "Ich möchte ___ Salat.",
+                        options: ["einen", "ein", "ein"],
+                        correct: "einen",
+                        hint: "DER SALAT is masculine!",
+                        explanation: "Der Salat is masculine, accusative = einen! 'I would like a salad.' Einen Salat! 🥗"
+                    },
+                    {
+                        sentence: "Ich esse ___ Suppe.",
+                        options: ["die", "der", "der"],
+                        correct: "die",
+                        hint: "DIE SUPPE is feminine!",
+                        explanation: "Die Suppe is feminine! 'I eat the soup.' Die Suppe! 🍲"
+                    },
+                    {
+                        sentence: "Ich trinke ___ Saft.",
+                        options: ["den", "das", "dem"],
+                        correct: "den",
+                        hint: "DER SAFT is masculine!",
+                        explanation: "Der Saft is masculine, accusative = den! 'I drink the juice.' Den Saft! 🧃"
+                    },
+                    {
+                        sentence: "Ich hätte gern ___ Eis.",
+                        options: ["ein", "einen", "einen"],
+                        correct: "ein",
+                        hint: "DAS EIS is neuter!",
+                        explanation: "Das Eis is neuter, stays 'ein' in accusative! 'I would like an ice cream.' Ein Eis! 🍦"
+                    },
+                    {
+                        sentence: "Ich kaufe ___ Käse.",
+                        options: ["den", "die", "die"],
+                        correct: "den",
+                        hint: "DER KÄSE is masculine!",
+                        explanation: "Der Käse is masculine, accusative = den! 'I buy the cheese.' Den Käse! 🧀"
+                    },
+                    {
+                        sentence: "Ich möchte ___ Fisch.",
+                        options: ["den", "das", "das"],
+                        correct: "den",
+                        hint: "DER FISCH is masculine!",
+                        explanation: "Der Fisch is masculine, accusative = den! 'I would like the fish.' Den Fisch! 🐟"
+                    },
+                    {
+                        sentence: "Ich esse ___ Schokolade.",
+                        options: ["die", "der", "der"],
+                        correct: "die",
+                        hint: "DIE SCHOKOLADE is feminine!",
+                        explanation: "Die Schokolade is feminine! 'I eat the chocolate.' Die Schokolade! 🍫"
+                    },
+                    {
+                        sentence: "Ich trinke ___ Bier.",
+                        options: ["das", "den", "den"],
+                        correct: "das",
+                        hint: "DAS BIER is neuter!",
+                        explanation: "Das Bier is neuter! 'I drink the beer.' Das Bier! 🍺"
+                    },
+                    {
+                        sentence: "Ich brauche ___ Zucker.",
+                        options: ["den", "das", "das"],
+                        correct: "den",
+                        hint: "DER ZUCKER is masculine!",
+                        explanation: "Der Zucker is masculine, accusative = den! 'I need the sugar.' Den Zucker! 🍬"
+                    }
+                ]
+            },
+            5: {
+                title: "Daily Routine ⏰",
+                subtitle: "Verbs + time expressions",
+                questions: [
+                    {
+                        sentence: "Ich stehe ___ auf.",
+                        options: ["um 7 Uhr", "in 7 Uhr", "am 7 Uhr"],
+                        correct: "um 7 Uhr",
+                        hint: "Use 'um' for specific clock times!",
+                        explanation: "Use 'um' (at) for specific times! 'Ich stehe um 7 Uhr auf' = I get up at 7 o'clock. ⏰"
+                    },
+                    {
+                        sentence: "Ich gehe ___ zur Schule.",
+                        options: ["jeden Tag", "jeder Tag", "jeden Tage"],
+                        correct: "jeden Tag",
+                        hint: "Every day = accusative!",
+                        explanation: "Jeden Tag = every day (accusative). 'I go to school every day.' 🏫"
+                    },
+                    {
+                        sentence: "Wir haben ___ Deutschunterricht.",
+                        options: ["am Montag", "im Montag", "in Montag"],
+                        correct: "am Montag",
+                        hint: "Days use 'am' (on)!",
+                        explanation: "Use 'am' for days! Am Montag = on Monday. 'We have German class on Monday.' 📚"
+                    },
+                    {
+                        sentence: "Ich esse ___ um 12 Uhr.",
+                        options: ["zu Mittag", "zum Mittag", "zum Mittag"],
+                        correct: "zu Mittag",
+                        hint: "Lunch = zu Mittag (fixed expression)",
+                        explanation: "Zu Mittag essen = to eat lunch. 'I eat lunch at 12 o'clock.' 🍽️"
+                    },
+                    {
+                        sentence: "Ich treffe meine Freunde ___.",
+                        options: ["morgen", "der morgen", "der morgen"],
+                        correct: "morgen",
+                        hint: "Tomorrow = just 'morgen'!",
+                        explanation: "Morgen = tomorrow. No article needed! 'I'm meeting my friends tomorrow.' 👥"
+                    },
+                    {
+                        sentence: "Wir gehen ___ ins Kino.",
+                        options: ["übermorgen", "nach morgen", "nach morgen"],
+                        correct: "übermorgen",
+                        hint: "Day after tomorrow = one word!",
+                        explanation: "Übermorgen = the day after tomorrow. 'We're going to the cinema the day after tomorrow.' 🎬"
+                    },
+                    {
+                        sentence: "Ich habe ___ frei.",
+                        options: ["am Wochenende", "im Wochenende", "im Wochenende"],
+                        correct: "am Wochenende",
+                        hint: "Weekend uses 'am'!",
+                        explanation: "Am Wochenende = on the weekend. 'I'm free on the weekend.' 🎉"
+                    },
+                    {
+                        sentence: "Ich schlafe ___ lange.",
+                        options: ["am Samstag", "im Samstag", "in Samstag"],
+                        correct: "am Samstag",
+                        hint: "Days of the week use 'am'!",
+                        explanation: "Am Samstag = on Saturday. 'I sleep long on Saturday.' 😴"
+                    },
+                    {
+                        sentence: "Ich lerne ___.",
+                        options: ["heute Abend", "heute am Abend", "heute am Abend"],
+                        correct: "heute Abend",
+                        hint: "This evening = heute Abend (no 'am')",
+                        explanation: "Heute Abend = this evening/tonight. 'I'm studying this evening.' 📖"
+                    },
+                    {
+                        sentence: "Wir spielen ___ Fußball.",
+                        options: ["am Nachmittag", "im Nachmittag", "im Nachmittag"],
+                        correct: "am Nachmittag",
+                        hint: "Time of day uses 'am'!",
+                        explanation: "Am Nachmittag = in the afternoon. 'We play soccer in the afternoon.' ⚽"
+                    },
+                    {
+                        sentence: "Ich war ___ im Park.",
+                        options: ["gestern", "der gestern", "der gestern"],
+                        correct: "gestern",
+                        hint: "Yesterday = just 'gestern'!",
+                        explanation: "Gestern = yesterday. No article! 'I was in the park yesterday.' 🌳"
+                    },
+                    {
+                        sentence: "Ich gehe ___ ins Bett.",
+                        options: ["um 22 Uhr", "in 22 Uhr", "in 22 Uhr"],
+                        correct: "um 22 Uhr",
+                        hint: "Specific time = 'um'!",
+                        explanation: "Um 22 Uhr = at 10 PM. 'I go to bed at 10 PM.' 🛏️"
+                    },
+                    {
+                        sentence: "Ich habe ___ keine Zeit.",
+                        options: ["heute", "der heute", "der heute"],
+                        correct: "heute",
+                        hint: "Today = just 'heute'!",
+                        explanation: "Heute = today. No article! 'I have no time today.' ⏰"
+                    },
+                    {
+                        sentence: "Wir fahren ___ in Urlaub.",
+                        options: ["nächste Woche", "nächster Woche", "nächster Woche"],
+                        correct: "nächste Woche",
+                        hint: "Next week = accusative time!",
+                        explanation: "Nächste Woche = next week (accusative for time). 'We're going on vacation next week.' ✈️"
+                    },
+                    {
+                        sentence: "Ich sehe ___ fern.",
+                        options: ["abends", "am abends", "am abends"],
+                        correct: "abends",
+                        hint: "In the evenings = just 'abends'!",
+                        explanation: "Abends = in the evenings (habitual). 'I watch TV in the evenings.' 📺"
+                    }
+                ]
+            },
+            6: {
+                title: "Modal Verbs 💪",
+                subtitle: "Können, möchten, müssen, wollen...",
+                questions: [
+                    {
+                        sentence: "Ich ___ Deutsch sprechen.",
+                        options: ["kann", "können", "kanne"],
+                        correct: "kann",
+                        hint: "ICH form of können (can/able to)",
+                        explanation: "Ich kann = I can. 'I can speak German.' Können = ability! 💬"
+                    },
+                    {
+                        sentence: "Ich ___ eine Pizza essen.",
+                        options: ["möchte", "möchten", "möchtest"],
+                        correct: "möchte",
+                        hint: "ICH form of möchten (would like)",
+                        explanation: "Ich möchte = I would like. 'I would like to eat a pizza.' Polite desire! 🍕"
+                    },
+                    {
+                        sentence: "Ich ___ meine Hausaufgaben machen.",
+                        options: ["muss", "müssen", "müsse"],
+                        correct: "muss",
+                        hint: "ICH form of müssen (must/have to)",
+                        explanation: "Ich muss = I must/have to. 'I have to do my homework.' Obligation! 📚"
+                    },
+                    {
+                        sentence: "Ich ___ ins Kino gehen.",
+                        options: ["will", "wollen", "wille"],
+                        correct: "will",
+                        hint: "ICH form of wollen (want to)",
+                        explanation: "Ich will = I want to. 'I want to go to the cinema.' Strong desire! 🎬"
+                    },
+                    {
+                        sentence: "Ich ___ Schokolade.",
+                        options: ["mag", "mögen", "mage"],
+                        correct: "mag",
+                        hint: "ICH form of mögen (like)",
+                        explanation: "Ich mag = I like. 'I like chocolate.' General liking! 🍫"
+                    },
+                    {
+                        sentence: "___ du schwimmen?",
+                        options: ["Kannst", "Können", "Könne"],
+                        correct: "Kannst",
+                        hint: "DU form of können!",
+                        explanation: "Kannst du = Can you. 'Can you swim?' DU form adds -st! 🏊"
+                    },
+                    {
+                        sentence: "Ich ___ heute nicht zur Schule gehen.",
+                        options: ["darf", "darfen", "dürfen"],
+                        correct: "darf",
+                        hint: "ICH form of dürfen (may/allowed to)",
+                        explanation: "Ich darf = I may/I'm allowed to. 'I'm not allowed to go to school today.' Permission! 🏫"
+                    },
+                    {
+                        sentence: "Ich ___ ein neues Handy kaufen.",
+                        options: ["möchte", "möchten", "möchten"],
+                        correct: "möchte",
+                        hint: "ICH form of möchten!",
+                        explanation: "Ich möchte = I would like. 'I would like to buy a new phone.' 📱"
+                    },
+                    {
+                        sentence: "___ du Kaffee oder Tee?",
+                        options: ["Magst", "Mögen", "Mage"],
+                        correct: "Magst",
+                        hint: "DU form of mögen (like)!",
+                        explanation: "Magst du = Do you like. 'Do you like coffee or tea?' DU form! ☕"
+                    },
+                    {
+                        sentence: "Ich ___ früh aufstehen.",
+                        options: ["muss", "müssen", "müssen"],
+                        correct: "muss",
+                        hint: "ICH form of müssen!",
+                        explanation: "Ich muss = I have to. 'I have to get up early.' ⏰"
+                    },
+                    {
+                        sentence: "Ich ___ Gitarre spielen lernen.",
+                        options: ["will", "wollen", "wollen"],
+                        correct: "will",
+                        hint: "ICH form of wollen (want)!",
+                        explanation: "Ich will = I want to. 'I want to learn to play guitar.' 🎸"
+                    },
+                    {
+                        sentence: "___ du mir helfen?",
+                        options: ["Kannst", "Können", "Könne"],
+                        correct: "Kannst",
+                        hint: "DU form of können!",
+                        explanation: "Kannst du = Can you. 'Can you help me?' 🙋"
+                    },
+                    {
+                        sentence: "Ich ___ hier nicht rauchen.",
+                        options: ["darf", "darfen", "dürfen"],
+                        correct: "darf",
+                        hint: "ICH form of dürfen!",
+                        explanation: "Ich darf nicht = I'm not allowed to. 'I'm not allowed to smoke here.' 🚭"
+                    },
+                    {
+                        sentence: "Ich ___ nach Hause gehen.",
+                        options: ["muss", "müssen", "müssen"],
+                        correct: "muss",
+                        hint: "ICH form of müssen!",
+                        explanation: "Ich muss = I have to. 'I have to go home.' 🏠"
+                    },
+                    {
+                        sentence: "___ du heute Abend Zeit?",
+                        options: ["Hast", "Haben", "Habe"],
+                        correct: "Hast",
+                        hint: "DU form of haben (not modal but important)!",
+                        explanation: "Hast du = Do you have. 'Do you have time this evening?' Not a modal, but essential! ⏰"
+                    }
+                ]
+            }
+        };
+
+        let currentChapter = 1;
+        let questions = [];
+        let currentQuestion = 0;
+        let score = 0;
+        let streak = 0;
+        let answered = false;
+
+        function startChapter(chapterNum) {
+            if (!chapters[chapterNum]) return;
+            
+            currentChapter = chapterNum;
+            questions = chapters[chapterNum].questions;
+            currentQuestion = 0;
+            score = 0;
+            streak = 0;
+            
+            document.getElementById('chapter-select').style.display = 'none';
+            document.getElementById('game-screen').style.display = 'block';
+            document.getElementById('chapter-title').innerHTML = chapters[chapterNum].title;
+            document.getElementById('chapter-subtitle').textContent = chapters[chapterNum].subtitle;
+            document.getElementById('current').textContent = '1';
+            document.getElementById('score').textContent = '0';
+            document.getElementById('streak').textContent = '0';
+            
+            loadQuestion();
+        }
+
+        function backToChapters() {
+            document.getElementById('game-screen').style.display = 'none';
+            document.getElementById('chapter-select').style.display = 'block';
+            document.getElementById('game-area').style.display = 'block';
+            document.getElementById('game-over').classList.remove('show');
+        }
+
+        function loadQuestion() {
+            answered = false;
+            const q = questions[currentQuestion];
+            
+            document.getElementById('sentence').textContent = q.sentence.replace('___', '______');
+            document.getElementById('hint').textContent = q.hint;
+            document.getElementById('current').textContent = currentQuestion + 1;
+            document.getElementById('total').textContent = questions.length;
+            document.getElementById('feedback').classList.remove('show', 'correct', 'wrong');
+            document.getElementById('next-btn').classList.remove('show');
+
+            const optionsContainer = document.getElementById('options');
+            optionsContainer.innerHTML = '';
+            
+            // Shuffle options randomly
+            const shuffledOptions = [...q.options].sort(() => Math.random() - 0.5);
+            
+            shuffledOptions.forEach(option => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.textContent = option;
+                btn.onclick = () => checkAnswer(option, btn);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(selected, btn) {
+            if (answered) return;
+            answered = true;
+
+            const q = questions[currentQuestion];
+            const isCorrect = selected === q.correct;
+            
+            // Update button styles
+            const allBtns = document.querySelectorAll('.option-btn');
+            allBtns.forEach(b => {
+                b.style.pointerEvents = 'none';
+                if (b.textContent === q.correct) {
+                    b.classList.add('correct');
+                } else if (b === btn && !isCorrect) {
+                    b.classList.add('wrong');
+                }
+            });
+
+            // Update score and streak
+            if (isCorrect) {
+                score += 10;
+                streak++;
+                if (streak >= 3) {
+                    score += 5; // Bonus for streak!
+                }
+            } else {
+                streak = 0;
+            }
+
+            document.getElementById('score').textContent = score;
+            document.getElementById('streak').textContent = streak;
+
+            // Show feedback
+            const feedback = document.getElementById('feedback');
+            feedback.classList.add('show', isCorrect ? 'correct' : 'wrong');
+            
+            const feedbackEmoji = isCorrect ? '🎉 Awesome!' : '😅 Oops!';
+            document.getElementById('feedback-text').textContent = feedbackEmoji;
+            document.getElementById('explanation').textContent = q.explanation;
+
+            // Show next button
+            if (currentQuestion < questions.length - 1) {
+                document.getElementById('next-btn').classList.add('show');
+            } else {
+                setTimeout(endGame, 1500);
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            loadQuestion();
+        }
+
+        function endGame() {
+            document.getElementById('game-area').style.display = 'none';
+            document.getElementById('game-over').classList.add('show');
+            document.getElementById('final-score').textContent = score + ' points!';
+            
+            let message = '';
+            if (score >= 80) {
+                message = "You're a German grammar legend! 🏆 Du bist der/die Beste!";
+            } else if (score >= 60) {
+                message = "Nice work! You're getting the hang of it! 💪 Keep practicing!";
+            } else {
+                message = "Good try! Practice makes perfect! 🌟 Don't give up!";
+            }
+            document.getElementById('final-message').textContent = message;
+        }
+
+        function restartGame() {
+            currentQuestion = 0;
+            score = 0;
+            streak = 0;
+            questions = chapters[currentChapter].questions;
+            document.getElementById('game-area').style.display = 'block';
+            document.getElementById('game-over').classList.remove('show');
+            document.getElementById('score').textContent = '0';
+            document.getElementById('streak').textContent = '0';
+            loadQuestion();
+        }
+
+        document.getElementById('next-btn').addEventListener('click', nextQuestion);
+    </script>
+</body>
+</html>
