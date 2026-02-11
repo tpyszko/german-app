@@ -493,6 +493,20 @@
                     <div class="chapter-difficulty">⭐⭐ Medium</div>
                 </div>
 
+                <div class="chapter-card" onclick="startChapter(7)">
+                    <div class="chapter-number">Chapter 7</div>
+                    <div class="chapter-title">City & Culture 🏛️</div>
+                    <div class="chapter-desc">Advanced plurals from real life</div>
+                    <div class="chapter-difficulty">⭐⭐ Medium</div>
+                </div>
+
+                <div class="chapter-card" onclick="startChapter(8)">
+                    <div class="chapter-number">Chapter 8</div>
+                    <div class="chapter-title">Personal Pronouns 👤</div>
+                    <div class="chapter-desc">Mich, dich, ihn, sie - Akkusativ!</div>
+                    <div class="chapter-difficulty">⭐⭐ Medium</div>
+                </div>
+
                 <div class="chapter-card locked">
                     <div class="chapter-number">More Soon!</div>
                     <div class="chapter-title">Coming Soon! 🔒</div>
@@ -1238,6 +1252,228 @@
                         correct: "Hast",
                         hint: "DU form of haben (not modal but important)!",
                         explanation: "Hast du = Do you have. 'Do you have time this evening?' Not a modal, but essential! ⏰"
+                    }
+                ]
+            },
+            7: {
+                title: "City & Culture 🏛️",
+                subtitle: "Advanced plurals from real life",
+                questions: [
+                    {
+                        sentence: "Berlin hat 3,5 Millionen ___.",
+                        options: ["Menschen", "Mensch", "Menschs"],
+                        correct: "Menschen",
+                        hint: "Mensch → Menschen (add -en)",
+                        explanation: "Mensch → Menschen! 'Berlin has 3.5 million people.' Der Mensch → die Menschen! 👥"
+                    },
+                    {
+                        sentence: "Wie viele ___ hat diese Stadt?",
+                        options: ["Einwohner", "Einwohnern", "Einwohners"],
+                        correct: "Einwohner",
+                        hint: "Einwohner → Einwohner (no change!)",
+                        explanation: "Einwohner → Einwohner! It stays the same! 'How many inhabitants does this city have?' Der Einwohner → die Einwohner! 🏙️"
+                    },
+                    {
+                        sentence: "Deutschland hat viele gute ___.",
+                        options: ["Universitäten", "Universität", "Universitäts"],
+                        correct: "Universitäten",
+                        hint: "Universität → Universitäten (add -en)",
+                        explanation: "Universität → Universitäten! 'Germany has many good universities.' Die Universität → die Universitäten! 🎓"
+                    },
+                    {
+                        sentence: "Es gibt viele technische ___ in Deutschland.",
+                        options: ["Hochschulen", "Hochschule", "Hochschules"],
+                        correct: "Hochschulen",
+                        hint: "Hochschule → Hochschulen (add -n)",
+                        explanation: "Hochschule → Hochschulen! 'There are many technical colleges in Germany.' Die Hochschule → die Hochschulen! 📚"
+                    },
+                    {
+                        sentence: "Im Restaurant gibt es viele ___.",
+                        options: ["Tische", "Tisch", "Tischen"],
+                        correct: "Tische",
+                        hint: "Tisch → Tische (add -e)",
+                        explanation: "Tisch → Tische! 'In the restaurant there are many tables.' Der Tisch → die Tische! 🪑"
+                    },
+                    {
+                        sentence: "Moderne ___ sind sehr teuer.",
+                        options: ["Telefone", "Telefon", "Telefones"],
+                        correct: "Telefone",
+                        hint: "Telefon → Telefone (add -e)",
+                        explanation: "Telefon → Telefone! 'Modern phones are very expensive.' Das Telefon → die Telefone! 📱"
+                    },
+                    {
+                        sentence: "Alle Studenten haben ___.",
+                        options: ["Computer", "Computern", "Computers"],
+                        correct: "Computer",
+                        hint: "Computer → Computer (no change!)",
+                        explanation: "Computer → Computer! It stays the same! 'All students have computers.' Der Computer → die Computer! 💻"
+                    },
+                    {
+                        sentence: "Auf der Straße stehen viele ___.",
+                        options: ["Autos", "Auto", "Autoen"],
+                        correct: "Autos",
+                        hint: "Auto → Autos (add -s)",
+                        explanation: "Auto → Autos! Just add -s! 'There are many cars on the street.' Das Auto → die Autos! 🚗"
+                    },
+                    {
+                        sentence: "Ich bin seit drei ___ in Berlin.",
+                        options: ["Jahren", "Jahre", "Jahres"],
+                        correct: "Jahren",
+                        hint: "After 'seit' + number, use dative plural!",
+                        explanation: "After 'seit' with a number, use Jahren (dative plural)! 'I've been in Berlin for three years.' Das Jahr → die Jahre → drei Jahren! ⏰"
+                    },
+                    {
+                        sentence: "Berlin hat viele berühmte ___.",
+                        options: ["Theater", "Theaters", "Theatern"],
+                        correct: "Theater",
+                        hint: "Theater → Theater (no change!)",
+                        explanation: "Theater → Theater! It stays the same! 'Berlin has many famous theaters.' Das Theater → die Theater! 🎭"
+                    },
+                    {
+                        sentence: "Ich besuche gern ___.",
+                        options: ["Museen", "Museum", "Museums"],
+                        correct: "Museen",
+                        hint: "Museum → Museen (Latin plural!)",
+                        explanation: "Museum → Museen! Latin origin word! 'I like visiting museums.' Das Museum → die Museen! 🏛️"
+                    },
+                    {
+                        sentence: "In der Galerie hängen viele ___.",
+                        options: ["Bilder", "Bild", "Bildern"],
+                        correct: "Bilder",
+                        hint: "Bild → Bilder (add -er)",
+                        explanation: "Bild → Bilder! Add -er! 'Many pictures hang in the gallery.' Das Bild → die Bilder! 🖼️"
+                    },
+                    {
+                        sentence: "Das Museum zeigt moderne ___.",
+                        options: ["Kunstwerke", "Kunstwerk", "Kunstwerken"],
+                        correct: "Kunstwerke",
+                        hint: "Kunstwerk → Kunstwerke (add -e)",
+                        explanation: "Kunstwerk → Kunstwerke! Add -e! 'The museum shows modern artworks.' Das Kunstwerk → die Kunstwerke! 🎨"
+                    },
+                    {
+                        sentence: "Im Kino laufen viele ___.",
+                        options: ["Filme", "Film", "Filmen"],
+                        correct: "Filme",
+                        hint: "Film → Filme (add -e)",
+                        explanation: "Film → Filme! Add -e! 'Many films are showing at the cinema.' Der Film → die Filme! 🎬"
+                    },
+                    {
+                        sentence: "Deutschland hat viele schöne ___.",
+                        options: ["Städte", "Stadt", "Stadten"],
+                        correct: "Städte",
+                        hint: "Stadt → Städte (umlaut + -e)",
+                        explanation: "Stadt → Städte! Umlaut + add -e! 'Germany has many beautiful cities.' Die Stadt → die Städte! 🏙️"
+                    }
+                ]
+            },
+            8: {
+                title: "Personal Pronouns 👤",
+                subtitle: "Mich, dich, ihn, sie - Akkusativ!",
+                questions: [
+                    {
+                        sentence: "Besuchst du Peter heute? - Ja, ich besuche ___ heute.",
+                        options: ["ihn", "er", "ihm"],
+                        correct: "ihn",
+                        hint: "Peter (er) → accusative = ihn!",
+                        explanation: "Er (he) becomes 'ihn' in accusative! 'Yes, I'm visiting him today.' Er → ihn! 👨"
+                    },
+                    {
+                        sentence: "Findest du Beate nett? - Ja, ich finde ___ nett.",
+                        options: ["sie", "ihr", "ihnen"],
+                        correct: "sie",
+                        hint: "Beate (sie) stays 'sie' in accusative!",
+                        explanation: "Sie (she) stays 'sie' in accusative! 'Yes, I find her nice.' Sie → sie! 👩"
+                    },
+                    {
+                        sentence: "Kennst du ___ ? (speaking to 'du')",
+                        options: ["mich", "mir", "ich"],
+                        correct: "mich",
+                        hint: "Ich → accusative = mich!",
+                        explanation: "Ich (I) becomes 'mich' in accusative! 'Do you know me?' Ich → mich! 🙋"
+                    },
+                    {
+                        sentence: "Siehst du das Auto? - Ja, ich sehe ___.",
+                        options: ["es", "ihm", "ihn"],
+                        correct: "es",
+                        hint: "Das Auto (es) stays 'es' in accusative!",
+                        explanation: "Es (it/neuter) stays 'es' in accusative! 'Yes, I see it.' Es → es! 🚗"
+                    },
+                    {
+                        sentence: "Liebst du ___? (speaking to 'du')",
+                        options: ["mich", "mir", "ich"],
+                        correct: "mich",
+                        hint: "After 'lieben', use accusative!",
+                        explanation: "After verbs like 'lieben', ich becomes 'mich'! 'Do you love me?' Ich → mich! ❤️"
+                    },
+                    {
+                        sentence: "Hörst du die Musik? - Ja, ich höre ___.",
+                        options: ["sie", "ihr", "ihnen"],
+                        correct: "sie",
+                        hint: "Die Musik (sie) stays 'sie'!",
+                        explanation: "Die Musik (sie) stays 'sie' in accusative! 'Yes, I hear it.' Sie → sie! 🎵"
+                    },
+                    {
+                        sentence: "Kennst du uns? - Ja, ich kenne ___.",
+                        options: ["euch", "ihr", "euren"],
+                        correct: "euch",
+                        hint: "Wir → accusative = uns, but when answering 'you all' = euch!",
+                        explanation: "When someone says 'uns' (we/us) and you answer back to them, use 'euch' (you all)! Ihr → euch! 👥"
+                    },
+                    {
+                        sentence: "Wir nehmen die Steaks. - Wir nehmen ___.",
+                        options: ["sie", "ihnen", "ihr"],
+                        correct: "sie",
+                        hint: "Die Steaks (plural) = sie in accusative!",
+                        explanation: "Die Steaks (plural sie) stays 'sie' in accusative! 'We're taking them.' Sie → sie! 🥩"
+                    },
+                    {
+                        sentence: "Der Mann fragt die Frau. - Der Mann fragt ___.",
+                        options: ["sie", "ihr", "ihnen"],
+                        correct: "sie",
+                        hint: "Die Frau = sie in accusative!",
+                        explanation: "Die Frau (she) becomes 'sie' in accusative! 'The man asks her.' Sie → sie! 👩"
+                    },
+                    {
+                        sentence: "Der Vater liest die Zeitung. - Der Vater liest ___.",
+                        options: ["sie", "ihn", "es"],
+                        correct: "sie",
+                        hint: "Die Zeitung = sie in accusative!",
+                        explanation: "Die Zeitung (she/it) becomes 'sie' in accusative! 'The father reads it.' Sie → sie! 📰"
+                    },
+                    {
+                        sentence: "Peter kauft den CD-Player. - Peter kauft ___.",
+                        options: ["ihn", "es", "ihm"],
+                        correct: "ihn",
+                        hint: "Der CD-Player (er) → accusative = ihn!",
+                        explanation: "Der CD-Player (er) becomes 'ihn' in accusative! 'Peter buys it.' Er → ihn! 💿"
+                    },
+                    {
+                        sentence: "Olga hört die Platte. - Olga hört ___.",
+                        options: ["sie", "ihr", "es"],
+                        correct: "sie",
+                        hint: "Die Platte (sie) stays sie!",
+                        explanation: "Die Platte (she/it) stays 'sie' in accusative! 'Olga hears it.' Sie → sie! 💿"
+                    },
+                    {
+                        sentence: "Ihr sucht die Katze. - Ihr sucht ___.",
+                        options: ["sie", "ihn", "es"],
+                        correct: "sie",
+                        hint: "Die Katze (sie) stays sie!",
+                        explanation: "Die Katze (she) stays 'sie' in accusative! 'You're looking for her.' Sie → sie! 🐱"
+                    },
+                    {
+                        sentence: "Brauchst du das Buch? - Ja, ich brauche ___.",
+                        options: ["es", "ihn", "sie"],
+                        correct: "es",
+                        hint: "Das Buch (es) stays es!",
+                        explanation: "Das Buch (it/neuter) stays 'es' in accusative! 'Yes, I need it.' Es → es! 📚"
+                    },
+                    {
+                        sentence: "Siehst du den Mann? - Ja, ich sehe ___.",
+                        options: ["ihn", "er", "ihm"],
+                        correct: "ihn",
+                        hint: "Der Mann (er) → accusative = ihn!",
+                        explanation: "Der Mann (er) becomes 'ihn' in accusative! 'Yes, I see him.' Er → ihn! 👨"
                     }
                 ]
             }
