@@ -507,6 +507,20 @@
                     <div class="chapter-difficulty">⭐⭐ Medium</div>
                 </div>
 
+                <div class="chapter-card" onclick="startChapter(9)">
+                    <div class="chapter-number">Chapter 9</div>
+                    <div class="chapter-title">Telling Time ⏰</div>
+                    <div class="chapter-desc">Wie spät ist es? Formal & informal</div>
+                    <div class="chapter-difficulty">⭐⭐ Medium</div>
+                </div>
+
+                <div class="chapter-card" onclick="startChapter(10)">
+                    <div class="chapter-number">Chapter 10</div>
+                    <div class="chapter-title">Daily Life 🌅</div>
+                    <div class="chapter-desc">From wake up to bedtime routine</div>
+                    <div class="chapter-difficulty">⭐⭐ Medium</div>
+                </div>
+
                 <div class="chapter-card locked">
                     <div class="chapter-number">More Soon!</div>
                     <div class="chapter-title">Coming Soon! 🔒</div>
@@ -1474,6 +1488,228 @@
                         correct: "ihn",
                         hint: "Der Mann (er) → accusative = ihn!",
                         explanation: "Der Mann (er) becomes 'ihn' in accusative! 'Yes, I see him.' Er → ihn! 👨"
+                    }
+                ]
+            },
+            9: {
+                title: "Telling Time ⏰",
+                subtitle: "Wie spät ist es? Formal & informal",
+                questions: [
+                    {
+                        sentence: "Es ist 9:00 Uhr. Wie sagt man das informal?",
+                        options: ["Es ist neun", "Es ist neun Uhr", "Neun Uhr"],
+                        correct: "Es ist neun",
+                        hint: "Informal = just the number!",
+                        explanation: "Informal: 'Es ist neun' (It's nine). You drop 'Uhr'! ⏰"
+                    },
+                    {
+                        sentence: "Es ist 15:00 Uhr. Wie sagt man das formal?",
+                        options: ["Es ist fünfzehn Uhr", "Es ist drei Uhr", "Es ist drei"],
+                        correct: "Es ist fünfzehn Uhr",
+                        hint: "Formal = 24-hour format with 'Uhr'!",
+                        explanation: "Formal: 'Es ist fünfzehn Uhr' (It's 15:00). Use 24-hour clock! 🕒"
+                    },
+                    {
+                        sentence: "3:15 - Wie sagt man das informal?",
+                        options: ["Viertel nach drei", "Drei Uhr fünfzehn", "Viertel vor vier"],
+                        correct: "Viertel nach drei",
+                        hint: "15 minutes = Viertel (quarter) nach!",
+                        explanation: "3:15 = 'Viertel nach drei' (quarter past three). Informal way! 🕒"
+                    },
+                    {
+                        sentence: "3:45 - Wie sagt man das informal?",
+                        options: ["Viertel vor vier", "Drei Uhr fünfundvierzig", "Viertel nach drei"],
+                        correct: "Viertel vor vier",
+                        hint: "45 minutes = Viertel (quarter) vor next hour!",
+                        explanation: "3:45 = 'Viertel vor vier' (quarter to four). Look to next hour! 🕒"
+                    },
+                    {
+                        sentence: "Es ist 7:30 Uhr. Wie sagt man das informal?",
+                        options: ["Halb acht", "Sieben Uhr dreißig", "Halb sieben"],
+                        correct: "Halb acht",
+                        hint: "30 minutes = halb + NEXT hour!",
+                        explanation: "7:30 = 'Halb acht' (half to eight)! Germans count TO the next hour! 🕧"
+                    },
+                    {
+                        sentence: "Wie spät ist es? (2:20 informal)",
+                        options: ["Zwanzig nach zwei", "Zwei Uhr zwanzig", "Zehn vor halb drei"],
+                        correct: "Zwanzig nach zwei",
+                        hint: "20 minutes = zwanzig nach!",
+                        explanation: "2:20 = 'Zwanzig nach zwei' (twenty past two). Informal! 🕑"
+                    },
+                    {
+                        sentence: "Wie spät ist es? (4:40 informal)",
+                        options: ["Zwanzig vor fünf", "Vier Uhr vierzig", "Zehn nach halb fünf"],
+                        correct: "Zwanzig vor fünf",
+                        hint: "40 minutes = 20 vor next hour!",
+                        explanation: "4:40 = 'Zwanzig vor fünf' (twenty to five). Count to next hour! 🕓"
+                    },
+                    {
+                        sentence: "Es ist 12:00 Uhr mittags. Wie sagt man das?",
+                        options: ["Es ist Mittag", "Es ist zwölf", "Es ist null Uhr"],
+                        correct: "Es ist Mittag",
+                        hint: "Noon = special word!",
+                        explanation: "12:00 noon = 'Es ist Mittag' (It's noon). Special word! ☀️"
+                    },
+                    {
+                        sentence: "Es ist 00:00 Uhr. Wie sagt man das?",
+                        options: ["Es ist Mitternacht", "Es ist null Uhr", "Es ist zwölf"],
+                        correct: "Es ist Mitternacht",
+                        hint: "Midnight = special word!",
+                        explanation: "00:00 = 'Es ist Mitternacht' (It's midnight). Special word! 🌙"
+                    },
+                    {
+                        sentence: "14:30 formal - wie sagt man das?",
+                        options: ["Es ist vierzehn Uhr dreißig", "Halb drei", "Halb fünfzehn"],
+                        correct: "Es ist vierzehn Uhr dreißig",
+                        hint: "Formal = exact minutes with Uhr!",
+                        explanation: "Formal: 'Es ist vierzehn Uhr dreißig' (14:30). Use exact format! ⏰"
+                    },
+                    {
+                        sentence: "Wann kommst du? - ___ acht. (at 8)",
+                        options: ["Um", "Am", "In"],
+                        correct: "Um",
+                        hint: "Specific clock time = um!",
+                        explanation: "'Um acht' = at eight. Use 'um' for clock times! ⏰"
+                    },
+                    {
+                        sentence: "5:10 informal - wie sagt man das?",
+                        options: ["Zehn nach fünf", "Fünf Uhr zehn", "Zehn vor halb sechs"],
+                        correct: "Zehn nach fünf",
+                        hint: "10 minutes = zehn nach!",
+                        explanation: "5:10 = 'Zehn nach fünf' (ten past five). Simple! 🕔"
+                    },
+                    {
+                        sentence: "6:50 informal - wie sagt man das?",
+                        options: ["Zehn vor sieben", "Sechs Uhr fünfzig", "Zehn nach halb sieben"],
+                        correct: "Zehn vor sieben",
+                        hint: "50 minutes = 10 vor next hour!",
+                        explanation: "6:50 = 'Zehn vor sieben' (ten to seven). Count to next hour! 🕕"
+                    },
+                    {
+                        sentence: "Wie spät ist es? (1:00 formal)",
+                        options: ["Es ist ein Uhr", "Es ist eins Uhr", "Es ist eins"],
+                        correct: "Es ist ein Uhr",
+                        hint: "Formal 1:00 = ein Uhr (not eins)!",
+                        explanation: "Formal 1:00 = 'Es ist ein Uhr'. Use 'ein' not 'eins'! 🕐"
+                    },
+                    {
+                        sentence: "Wie spät ist es? (10:30 informal)",
+                        options: ["Halb elf", "Zehn Uhr dreißig", "Halb zehn"],
+                        correct: "Halb elf",
+                        hint: "Remember: halb + NEXT hour!",
+                        explanation: "10:30 = 'Halb elf' (half to eleven). Germans count forward! 🕥"
+                    }
+                ]
+            },
+            10: {
+                title: "Daily Life 🌅",
+                subtitle: "From wake up to bedtime routine",
+                questions: [
+                    {
+                        sentence: "Ich ___ um 6 Uhr ___.",
+                        options: ["stehe...auf", "aufstehe", "stehe...an"],
+                        correct: "stehe...auf",
+                        hint: "Wake up = aufstehen (separable verb!)",
+                        explanation: "'Ich stehe um 6 Uhr auf' = I wake up at 6. Separable verb: stehe...auf! ⏰"
+                    },
+                    {
+                        sentence: "Dann ___ ich ___.",
+                        options: ["dusche mich", "dusche", "mich dusche"],
+                        correct: "dusche mich",
+                        hint: "Shower = sich duschen (reflexive!)",
+                        explanation: "'Ich dusche mich' = I shower. Reflexive verb with 'mich'! 🚿"
+                    },
+                    {
+                        sentence: "Ich ___ meine Zähne.",
+                        options: ["putze", "putzt", "geputzt"],
+                        correct: "putze",
+                        hint: "Brush = putzen",
+                        explanation: "'Ich putze meine Zähne' = I brush my teeth. 🪥"
+                    },
+                    {
+                        sentence: "Ich ___ Frühstück.",
+                        options: ["frühstücke", "frühstückt", "frühstücken"],
+                        correct: "frühstücke",
+                        hint: "Have breakfast = frühstücken",
+                        explanation: "'Ich frühstücke' = I have breakfast. It's a verb! 🍳"
+                    },
+                    {
+                        sentence: "Ich ___ ___ um 7:30 Uhr.",
+                        options: ["ziehe...an", "anziehe", "ziehe...aus"],
+                        correct: "ziehe...an",
+                        hint: "Get dressed = sich anziehen (separable!)",
+                        explanation: "'Ich ziehe mich an' = I get dressed. Separable: ziehe...an! 👔"
+                    },
+                    {
+                        sentence: "Ich ___ zur Arbeit.",
+                        options: ["fahre", "fährt", "gefahren"],
+                        correct: "fahre",
+                        hint: "Drive/go = fahren",
+                        explanation: "'Ich fahre zur Arbeit' = I go to work (by vehicle). 🚗"
+                    },
+                    {
+                        sentence: "Ich ___ die Kinder vom Kindergarten ___.",
+                        options: ["hole...ab", "abhole", "hole...an"],
+                        correct: "hole...ab",
+                        hint: "Pick up = abholen (separable!)",
+                        explanation: "'Ich hole die Kinder ab' = I pick up the kids. Separable: hole...ab! 👶"
+                    },
+                    {
+                        sentence: "Ich ___ im Supermarkt ___.",
+                        options: ["kaufe...ein", "einkaufe", "kaufe...aus"],
+                        correct: "kaufe...ein",
+                        hint: "Shop = einkaufen (separable!)",
+                        explanation: "'Ich kaufe im Supermarkt ein' = I shop at the supermarket. Separable: kaufe...ein! 🛒"
+                    },
+                    {
+                        sentence: "Ich ___ von 9 bis 17 Uhr.",
+                        options: ["arbeite", "arbeitet", "gearbeitet"],
+                        correct: "arbeite",
+                        hint: "Work = arbeiten",
+                        explanation: "'Ich arbeite' = I work. Simple verb! 💼"
+                    },
+                    {
+                        sentence: "Ich ___ zu Mittag um 12 Uhr.",
+                        options: ["esse", "isst", "essen"],
+                        correct: "esse",
+                        hint: "Eat = essen (ich-form!)",
+                        explanation: "'Ich esse zu Mittag' = I have lunch. Ich esse! 🍽️"
+                    },
+                    {
+                        sentence: "Nach der Arbeit ___ ich nach Hause.",
+                        options: ["gehe", "geht", "gegangen"],
+                        correct: "gehe",
+                        hint: "Go = gehen",
+                        explanation: "'Ich gehe nach Hause' = I go home. 🏠"
+                    },
+                    {
+                        sentence: "Ich ___ das Abendessen.",
+                        options: ["koche", "kocht", "gekocht"],
+                        correct: "koche",
+                        hint: "Cook = kochen",
+                        explanation: "'Ich koche das Abendessen' = I cook dinner. 🍳"
+                    },
+                    {
+                        sentence: "Abends ___ ich ___.",
+                        options: ["sehe...fern", "fernsehe", "sehe...an"],
+                        correct: "sehe...fern",
+                        hint: "Watch TV = fernsehen (separable!)",
+                        explanation: "'Ich sehe fern' = I watch TV. Separable: sehe...fern! 📺"
+                    },
+                    {
+                        sentence: "Ich ___ um 22 Uhr ins Bett.",
+                        options: ["gehe", "geht", "gegangen"],
+                        correct: "gehe",
+                        hint: "Go to bed = ins Bett gehen",
+                        explanation: "'Ich gehe ins Bett' = I go to bed. 🛏️"
+                    },
+                    {
+                        sentence: "Ich ___ schnell ___.",
+                        options: ["schlafe...ein", "einschlafe", "schlafe...aus"],
+                        correct: "schlafe...ein",
+                        hint: "Fall asleep = einschlafen (separable!)",
+                        explanation: "'Ich schlafe ein' = I fall asleep. Separable: schlafe...ein! 😴"
                     }
                 ]
             }
