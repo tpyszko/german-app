@@ -323,6 +323,176 @@
             font-size: 1.2em;
         }
 
+        .help-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 1.8em;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: none;
+        }
+
+        .help-btn.show {
+            display: block;
+        }
+
+        .help-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.6);
+        }
+
+        .help-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .help-modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .help-content {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .help-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 2em;
+            cursor: pointer;
+            color: #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .help-close:hover {
+            transform: rotate(90deg);
+            color: #f5576c;
+        }
+
+        .help-title {
+            font-size: 2em;
+            color: #667eea;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .help-section {
+            margin-bottom: 25px;
+        }
+
+        .help-section h3 {
+            color: #764ba2;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .help-section p {
+            color: #334155;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .help-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: #f8f9fa;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .help-table th {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 700;
+        }
+
+        .help-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e5e7eb;
+            color: #334155;
+        }
+
+        .help-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .help-table tr:nth-child(even) {
+            background: white;
+        }
+
+        .help-highlight {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        .help-example {
+            background: #f0f9ff;
+            border-left: 4px solid #667eea;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-style: italic;
+            color: #334155;
+        }
+
+        @media (max-width: 600px) {
+            .help-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5em;
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .help-content {
+                padding: 20px;
+            }
+
+            .help-title {
+                font-size: 1.5em;
+            }
+
+            .help-table {
+                font-size: 0.9em;
+            }
+        }
+
         .chapter-select {
             animation: slideIn 0.5s ease-out;
         }
@@ -521,6 +691,13 @@
                     <div class="chapter-difficulty">⭐⭐ Medium</div>
                 </div>
 
+                <div class="chapter-card" onclick="startChapter(11)">
+                    <div class="chapter-number">Chapter 11</div>
+                    <div class="chapter-title">Dativ Case 🎁</div>
+                    <div class="chapter-desc">Mir, dir, ihm - give & help!</div>
+                    <div class="chapter-difficulty">⭐⭐⭐ Hard</div>
+                </div>
+
                 <div class="chapter-card locked">
                     <div class="chapter-number">More Soon!</div>
                     <div class="chapter-title">Coming Soon! 🔒</div>
@@ -578,6 +755,260 @@
         </div>
         </div>
         <!-- End Game Screen -->
+    </div>
+
+    <!-- Help Button (shows only in Chapter 11) -->
+    <button class="help-btn" id="help-btn" onclick="toggleHelp()">ℹ️</button>
+
+    <!-- Help Modal -->
+    <div class="help-modal" id="help-modal" onclick="closeHelpIfOutside(event)">
+        <div class="help-content">
+            <button class="help-close" onclick="toggleHelp()">×</button>
+            
+            <h2 class="help-title">Dativ Case Quick Guide 📚</h2>
+            
+            <div class="help-section">
+                <h3>🎯 What is Dativ?</h3>
+                <p>Dativ is the <span class="help-highlight">indirect object</span> case. Use it for:</p>
+                <p>✅ <strong>To whom</strong> you give/show/tell something</p>
+                <p>✅ After certain <strong>verbs</strong> (helfen, gefallen, danken...)</p>
+                <p>✅ After certain <strong>prepositions</strong> (mit, nach, bei, von...)</p>
+                <p>✅ For <strong>location</strong> with two-way prepositions</p>
+                <div class="help-example">
+                    💡 Example: "Ich helfe <strong>dir</strong>" = I help you (to you)
+                </div>
+            </div>
+
+            <div class="help-section">
+                <h3>👤 Personal Pronouns in Dativ</h3>
+                <table class="help-table">
+                    <tr>
+                        <th>Nominativ</th>
+                        <th>Dativ</th>
+                        <th>Example</th>
+                    </tr>
+                    <tr>
+                        <td>ich</td>
+                        <td><strong>mir</strong></td>
+                        <td>Hilfst du <strong>mir</strong>?</td>
+                    </tr>
+                    <tr>
+                        <td>du</td>
+                        <td><strong>dir</strong></td>
+                        <td>Ich helfe <strong>dir</strong>.</td>
+                    </tr>
+                    <tr>
+                        <td>er</td>
+                        <td><strong>ihm</strong></td>
+                        <td>Ich gebe <strong>ihm</strong> das Buch.</td>
+                    </tr>
+                    <tr>
+                        <td>sie</td>
+                        <td><strong>ihr</strong></td>
+                        <td>Es gefällt <strong>ihr</strong>.</td>
+                    </tr>
+                    <tr>
+                        <td>es</td>
+                        <td><strong>ihm</strong></td>
+                        <td>Mit <strong>ihm</strong> spielen.</td>
+                    </tr>
+                    <tr>
+                        <td>wir</td>
+                        <td><strong>uns</strong></td>
+                        <td>Er dankt <strong>uns</strong>.</td>
+                    </tr>
+                    <tr>
+                        <td>ihr</td>
+                        <td><strong>euch</strong></td>
+                        <td>Ich zeige <strong>euch</strong> die Stadt.</td>
+                    </tr>
+                    <tr>
+                        <td>sie/Sie</td>
+                        <td><strong>ihnen/Ihnen</strong></td>
+                        <td>Ich helfe <strong>ihnen</strong>.</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="help-section">
+                <h3>📝 Articles in Dativ</h3>
+                <table class="help-table">
+                    <tr>
+                        <th>Gender</th>
+                        <th>Nominativ</th>
+                        <th>Dativ</th>
+                    </tr>
+                    <tr>
+                        <td>Masculine</td>
+                        <td>der/ein</td>
+                        <td><strong>dem/einem</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Feminine</td>
+                        <td>die/eine</td>
+                        <td><strong>der/einer</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Neuter</td>
+                        <td>das/ein</td>
+                        <td><strong>dem/einem</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Plural</td>
+                        <td>die</td>
+                        <td><strong>den + -n</strong></td>
+                    </tr>
+                </table>
+                <div class="help-example">
+                    💡 Mit <strong>dem</strong> Zug, bei <strong>der</strong> Arbeit, von <strong>den</strong> Kinder<strong>n</strong>
+                </div>
+            </div>
+
+            <div class="help-section">
+                <h3>🎒 Possessive Pronouns in Dativ</h3>
+                <table class="help-table">
+                    <tr>
+                        <th>Pronoun</th>
+                        <th>Masculine</th>
+                        <th>Feminine</th>
+                        <th>Neuter</th>
+                        <th>Plural</th>
+                    </tr>
+                    <tr>
+                        <td>mein</td>
+                        <td><strong>meinem</strong></td>
+                        <td><strong>meiner</strong></td>
+                        <td><strong>meinem</strong></td>
+                        <td><strong>meinen</strong></td>
+                    </tr>
+                    <tr>
+                        <td>dein</td>
+                        <td><strong>deinem</strong></td>
+                        <td><strong>deiner</strong></td>
+                        <td><strong>deinem</strong></td>
+                        <td><strong>deinen</strong></td>
+                    </tr>
+                    <tr>
+                        <td>sein/ihr</td>
+                        <td><strong>seinem/ihrem</strong></td>
+                        <td><strong>seiner/ihrer</strong></td>
+                        <td><strong>seinem/ihrem</strong></td>
+                        <td><strong>seinen/ihren</strong></td>
+                    </tr>
+                    <tr>
+                        <td>unser</td>
+                        <td><strong>unserem</strong></td>
+                        <td><strong>unserer</strong></td>
+                        <td><strong>unserem</strong></td>
+                        <td><strong>unseren</strong></td>
+                    </tr>
+                </table>
+                <div class="help-example">
+                    💡 Mit <strong>meinem</strong> Bruder, bei <strong>deiner</strong> Schwester, zu <strong>unseren</strong> Freunden
+                </div>
+            </div>
+
+            <div class="help-section">
+                <h3>🔑 Prepositions ALWAYS with Dativ</h3>
+                <table class="help-table">
+                    <tr>
+                        <th>Preposition</th>
+                        <th>Meaning</th>
+                        <th>Example</th>
+                    </tr>
+                    <tr>
+                        <td><strong>aus</strong></td>
+                        <td>from, out of</td>
+                        <td>aus <strong>der</strong> Türkei</td>
+                    </tr>
+                    <tr>
+                        <td><strong>außer</strong></td>
+                        <td>except</td>
+                        <td>außer <strong>dir</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>bei</strong></td>
+                        <td>at, with</td>
+                        <td>bei <strong>meinen</strong> Eltern</td>
+                    </tr>
+                    <tr>
+                        <td><strong>gegenüber</strong></td>
+                        <td>opposite</td>
+                        <td>gegenüber <strong>dem</strong> Haus</td>
+                    </tr>
+                    <tr>
+                        <td><strong>mit</strong></td>
+                        <td>with</td>
+                        <td>mit <strong>dem</strong> Auto</td>
+                    </tr>
+                    <tr>
+                        <td><strong>nach</strong></td>
+                        <td>after, to</td>
+                        <td>nach <strong>dem</strong> Essen</td>
+                    </tr>
+                    <tr>
+                        <td><strong>seit</strong></td>
+                        <td>since, for</td>
+                        <td>seit <strong>einer</strong> Woche</td>
+                    </tr>
+                    <tr>
+                        <td><strong>von</strong></td>
+                        <td>from, of</td>
+                        <td>von <strong>meiner</strong> Mutter</td>
+                    </tr>
+                    <tr>
+                        <td><strong>zu</strong></td>
+                        <td>to</td>
+                        <td>zu <strong>meinem</strong> Freund</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="help-section">
+                <h3>⚡ Two-Way Prepositions (Dativ = LOCATION)</h3>
+                <p>These use <strong>Dativ for LOCATION</strong> (where?) and Akkusativ for movement (where to?):</p>
+                <table class="help-table">
+                    <tr>
+                        <th>Preposition</th>
+                        <th>Dativ (Location)</th>
+                        <th>Akkusativ (Movement)</th>
+                    </tr>
+                    <tr>
+                        <td><strong>in</strong></td>
+                        <td>im Garten (in the garden)</td>
+                        <td>in den Garten (into the garden)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>auf</strong></td>
+                        <td>auf dem Tisch (on the table)</td>
+                        <td>auf den Tisch (onto the table)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>an</strong></td>
+                        <td>an der Wand (on the wall)</td>
+                        <td>an die Wand (to the wall)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>vor</strong></td>
+                        <td>vor der Tür (in front of door)</td>
+                        <td>vor die Tür (to front of door)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>hinter</strong></td>
+                        <td>hinter dem Haus (behind house)</td>
+                        <td>hinter das Haus (to behind house)</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="help-section">
+                <h3>💪 Common Dativ Verbs</h3>
+                <p><strong>helfen, danken, gefallen, passen, gehören, gratulieren, antworten, folgen, vertrauen, schmecken, schaden, fehlen, glauben, zeigen, geben, bringen, schenken, leihen, erzählen, empfehlen</strong></p>
+                <div class="help-example">
+                    💡 Remember: These verbs ALWAYS take Dativ object!
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -1712,6 +2143,362 @@
                         explanation: "'Ich schlafe ein' = I fall asleep. Separable: schlafe...ein! 😴"
                     }
                 ]
+            },
+            11: {
+                title: "Dativ Case 🎁",
+                subtitle: "Mir, dir, ihm - give & help!",
+                questions: [
+                    {
+                        sentence: "Kannst du ___ helfen? (speaking to ich)",
+                        options: ["mir", "mich", "ich"],
+                        correct: "mir",
+                        hint: "Helfen uses DATIV! Ich → mir",
+                        explanation: "'Helfen' (to help) takes dativ! 'Can you help me?' Ich → mir! 🙋"
+                    },
+                    {
+                        sentence: "Die Schuhe gefallen ___ nicht. (speaking to ich)",
+                        options: ["mir", "mich", "ich"],
+                        correct: "mir",
+                        hint: "Gefallen uses DATIV! Ich → mir",
+                        explanation: "'Gefallen' (to please) takes dativ! 'The shoes don't please me.' Ich → mir! 👟"
+                    },
+                    {
+                        sentence: "Das Kleid passt ___ nicht. (speaking to ich)",
+                        options: ["mir", "mich", "ich"],
+                        correct: "mir",
+                        hint: "Passen uses DATIV! Ich → mir",
+                        explanation: "'Passen' (to fit) takes dativ! 'The dress doesn't fit me.' Ich → mir! 👗"
+                    },
+                    {
+                        sentence: "Kommst du mit ___ Zug? (with the train - der Zug)",
+                        options: ["dem", "den", "der"],
+                        correct: "dem",
+                        hint: "Mit + DATIV! Der → dem",
+                        explanation: "'Mit' needs dativ! 'Are you coming by train?' Der Zug → mit dem Zug! 🚂"
+                    },
+                    {
+                        sentence: "Ich fahre nach ___.",
+                        options: ["Deutschland", "dem Deutschland", "den Deutschland"],
+                        correct: "Deutschland",
+                        hint: "Nach + country = no article!",
+                        explanation: "'Nach' + countries without article! 'I'm going to Germany.' Nach Deutschland! 🇩🇪"
+                    },
+                    {
+                        sentence: "Wir fahren in ___ Schweiz.",
+                        options: ["die", "der", "das"],
+                        correct: "die",
+                        hint: "In + DIE Schweiz (feminine + article stays!)",
+                        explanation: "'In die Schweiz' - special! Some countries keep the article. Die Schweiz! 🇨🇭"
+                    },
+                    {
+                        sentence: "Familie Grüne fährt nach ___.",
+                        options: ["Frankreich", "dem Frankreich", "den Frankreich"],
+                        correct: "Frankreich",
+                        hint: "Nach + country = no article!",
+                        explanation: "'Nach Frankreich' - no article with 'nach'! 🇫🇷"
+                    },
+                    {
+                        sentence: "Ich fliege an ___ Strand. (der Strand)",
+                        options: ["den", "dem", "der"],
+                        correct: "den",
+                        hint: "An + accusative (movement TO!)",
+                        explanation: "'An den Strand' - movement to location = accusative after 'an'! Der → den! 🏖️"
+                    },
+                    {
+                        sentence: "Ich helfe ___. (du)",
+                        options: ["dir", "dich", "du"],
+                        correct: "dir",
+                        hint: "Helfen + DATIV! Du → dir",
+                        explanation: "'Ich helfe dir' = I help you. Helfen takes dativ! Du → dir! 🤝"
+                    },
+                    {
+                        sentence: "Gefällt ___ die Bluse? (er)",
+                        options: ["ihm", "ihn", "er"],
+                        correct: "ihm",
+                        hint: "Gefallen + DATIV! Er → ihm",
+                        explanation: "'Does the blouse please him?' Gefallen takes dativ! Er → ihm! 👔"
+                    },
+                    {
+                        sentence: "Der Pullover steht ___ gut. (ich)",
+                        options: ["mir", "mich", "ich"],
+                        correct: "mir",
+                        hint: "Stehen (to suit) + DATIV!",
+                        explanation: "'The pullover suits me well.' Stehen takes dativ! Ich → mir! 🧥"
+                    },
+                    {
+                        sentence: "Ich reise mit ___ Fähre. (die Fähre)",
+                        options: ["der", "die", "den"],
+                        correct: "der",
+                        hint: "Mit + DATIV! Die → der",
+                        explanation: "'Mit' needs dativ! 'I'm traveling by ferry.' Die Fähre → mit der Fähre! ⛴️"
+                    },
+                    {
+                        sentence: "Wir fahren zu ___.",
+                        options: ["Oma", "der Oma", "die Oma"],
+                        correct: "Oma",
+                        hint: "Zu + person = no article with names!",
+                        explanation: "'Zu Oma' = to grandma. Use 'zu' without article for people! 👵"
+                    },
+                    {
+                        sentence: "Kannst du ___ helfen? (wir)",
+                        options: ["uns", "wir", "unser"],
+                        correct: "uns",
+                        hint: "Helfen + DATIV! Wir → uns",
+                        explanation: "'Can you help us?' Helfen takes dativ! Wir → uns! 👥"
+                    },
+                    {
+                        sentence: "Das Auto gehört ___ nicht. (ich)",
+                        options: ["mir", "mich", "mein"],
+                        correct: "mir",
+                        hint: "Gehören (to belong) + DATIV!",
+                        explanation: "'Gehören' (to belong to) takes dativ! 'The car doesn't belong to me.' Ich → mir! 🚗"
+                    },
+                    {
+                        sentence: "Ich gebe ___ das Buch. (du)",
+                        options: ["dir", "dich", "dein"],
+                        correct: "dir",
+                        hint: "Geben (to give) + DATIV!",
+                        explanation: "'I give you the book.' Geben takes dativ! Du → dir! 📚"
+                    },
+                    {
+                        sentence: "Er dankt ___ für die Hilfe. (ich)",
+                        options: ["mir", "mich", "ich"],
+                        correct: "mir",
+                        hint: "Danken (to thank) + DATIV!",
+                        explanation: "'Danken' (to thank) takes dativ! 'He thanks me.' Ich → mir! 🙏"
+                    },
+                    {
+                        sentence: "Die Jacke gehört ___ Bruder. (mein)",
+                        options: ["meinem", "meinen", "mein"],
+                        correct: "meinem",
+                        hint: "Gehören + DATIV! Mein → meinem",
+                        explanation: "'The jacket belongs to my brother.' Mein Bruder → meinem Bruder in dativ! 🧥"
+                    },
+                    {
+                        sentence: "Ich zeige ___ die Stadt. (sie - feminine)",
+                        options: ["ihr", "sie", "ihren"],
+                        correct: "ihr",
+                        hint: "Zeigen (to show) + DATIV! Sie → ihr",
+                        explanation: "'I show her the city.' Zeigen takes dativ! Sie → ihr! 🏙️"
+                    },
+                    {
+                        sentence: "Wir gratulieren ___ zum Geburtstag! (du)",
+                        options: ["dir", "dich", "dein"],
+                        correct: "dir",
+                        hint: "Gratulieren + DATIV!",
+                        explanation: "'We congratulate you on your birthday!' Gratulieren takes dativ! Du → dir! 🎂"
+                    },
+                    {
+                        sentence: "Das Essen schmeckt ___ sehr gut. (ich)",
+                        options: ["mir", "mich", "ich"],
+                        correct: "mir",
+                        hint: "Schmecken (to taste) + DATIV!",
+                        explanation: "'The food tastes good to me.' Schmecken takes dativ! Ich → mir! 🍽️"
+                    },
+                    {
+                        sentence: "Ich fahre mit ___ Auto. (das Auto)",
+                        options: ["dem", "das", "den"],
+                        correct: "dem",
+                        hint: "Mit + DATIV! Das → dem",
+                        explanation: "'I'm driving by car.' Mit dem Auto! Das → dem in dativ! 🚗"
+                    },
+                    {
+                        sentence: "Er antwortet ___ nicht. (ich)",
+                        options: ["mir", "mich", "ich"],
+                        correct: "mir",
+                        hint: "Antworten (to answer) + DATIV!",
+                        explanation: "'He doesn't answer me.' Antworten takes dativ! Ich → mir! 💬"
+                    },
+                    {
+                        sentence: "Ich wohne bei ___ Eltern. (meine)",
+                        options: ["meinen", "meine", "meinem"],
+                        correct: "meinen",
+                        hint: "Bei + DATIV + PLURAL!",
+                        explanation: "'I live with my parents.' Bei + dativ plural = meinen Eltern! 🏠"
+                    },
+                    {
+                        sentence: "Das Handy gehört ___ Schwester. (deine)",
+                        options: ["deiner", "deine", "deinen"],
+                        correct: "deiner",
+                        hint: "Gehören + DATIV + feminine!",
+                        explanation: "'The phone belongs to your sister.' Deine Schwester → deiner Schwester in dativ! 📱"
+                    },
+                    {
+                        sentence: "Wir fahren zu ___ Freunden. (unsere)",
+                        options: ["unseren", "unsere", "unserem"],
+                        correct: "unseren",
+                        hint: "Zu + DATIV + PLURAL!",
+                        explanation: "'We're going to our friends.' Zu + dativ plural = unseren Freunden! 👥"
+                    },
+                    {
+                        sentence: "Er schreibt ___ einen Brief. (sie - plural)",
+                        options: ["ihnen", "sie", "ihr"],
+                        correct: "ihnen",
+                        hint: "Schreiben + DATIV! Sie (plural) → ihnen",
+                        explanation: "'He writes them a letter.' Sie (plural) → ihnen in dativ! ✉️"
+                    },
+                    {
+                        sentence: "Die Musik gefällt ___ gut. (wir)",
+                        options: ["uns", "wir", "unser"],
+                        correct: "uns",
+                        hint: "Gefallen + DATIV! Wir → uns",
+                        explanation: "'The music pleases us.' Wir → uns in dativ! 🎵"
+                    },
+                    {
+                        sentence: "Ich erzähle ___ eine Geschichte. (ihr - you all)",
+                        options: ["euch", "ihr", "euer"],
+                        correct: "euch",
+                        hint: "Erzählen (to tell) + DATIV! Ihr → euch",
+                        explanation: "'I tell you all a story.' Ihr → euch in dativ! 📖"
+                    },
+                    {
+                        sentence: "Das gehört ___ Vater. (sein)",
+                        options: ["seinem", "seinen", "sein"],
+                        correct: "seinem",
+                        hint: "Gehören + DATIV! Sein → seinem",
+                        explanation: "'That belongs to his father.' Sein Vater → seinem Vater in dativ! 👨"
+                    },
+                    {
+                        sentence: "Wir begegnen ___ Lehrer. (der Lehrer)",
+                        options: ["dem", "den", "der"],
+                        correct: "dem",
+                        hint: "Begegnen (to meet) + DATIV! Der → dem",
+                        explanation: "'We meet the teacher.' Begegnen takes dativ! Der → dem! 👨‍🏫"
+                    },
+                    {
+                        sentence: "Es tut ___ leid. (ich)",
+                        options: ["mir", "mich", "ich"],
+                        correct: "mir",
+                        hint: "Leid tun + DATIV!",
+                        explanation: "'I'm sorry.' Literally: 'It does sorrow to me.' Ich → mir! 😔"
+                    },
+                    {
+                        sentence: "Die Idee kommt von ___. (du)",
+                        options: ["dir", "dich", "du"],
+                        correct: "dir",
+                        hint: "Von + DATIV! Du → dir",
+                        explanation: "'The idea comes from you.' Von + dativ! Du → dir! 💡"
+                    },
+                    {
+                        sentence: "Ich vertraue ___. (du)",
+                        options: ["dir", "dich", "du"],
+                        correct: "dir",
+                        hint: "Vertrauen (to trust) + DATIV!",
+                        explanation: "'I trust you.' Vertrauen takes dativ! Du → dir! 🤝"
+                    },
+                    {
+                        sentence: "Er folgt ___ Auto. (das Auto)",
+                        options: ["dem", "das", "den"],
+                        correct: "dem",
+                        hint: "Folgen (to follow) + DATIV! Das → dem",
+                        explanation: "'He follows the car.' Folgen takes dativ! Das → dem! 🚗"
+                    },
+                    {
+                        sentence: "Ich bin bei ___ Arbeit. (die Arbeit)",
+                        options: ["der", "die", "den"],
+                        correct: "der",
+                        hint: "Bei + DATIV! Die → der",
+                        explanation: "'I'm at work.' Bei der Arbeit! Die → der in dativ! 💼"
+                    },
+                    {
+                        sentence: "Sie kommt aus ___ Türkei. (die Türkei)",
+                        options: ["der", "die", "den"],
+                        correct: "der",
+                        hint: "Aus + DATIV! Die → der",
+                        explanation: "'She comes from Turkey.' Aus der Türkei! Die → der in dativ! 🇹🇷"
+                    },
+                    {
+                        sentence: "Nach ___ Unterricht gehe ich nach Hause. (der Unterricht)",
+                        options: ["dem", "den", "der"],
+                        correct: "dem",
+                        hint: "Nach + DATIV! Der → dem",
+                        explanation: "'After class I go home.' Nach dem Unterricht! Der → dem! 📚"
+                    },
+                    {
+                        sentence: "Seit ___ Woche lerne ich Deutsch. (eine)",
+                        options: ["einer", "eine", "einen"],
+                        correct: "einer",
+                        hint: "Seit + DATIV! Eine → einer",
+                        explanation: "'I've been learning German for a week.' Seit einer Woche! Eine → einer! ⏰"
+                    },
+                    {
+                        sentence: "Ich spreche mit ___ Freund. (mein)",
+                        options: ["meinem", "meinen", "mein"],
+                        correct: "meinem",
+                        hint: "Mit + DATIV! Mein → meinem",
+                        explanation: "'I'm talking with my friend.' Mit meinem Freund! Mein → meinem! 💬"
+                    },
+                    {
+                        sentence: "Der Brief ist von ___ Mutter. (meine)",
+                        options: ["meiner", "meine", "meinen"],
+                        correct: "meiner",
+                        hint: "Von + DATIV! Meine → meiner (feminine)",
+                        explanation: "'The letter is from my mother.' Von meiner Mutter! Meine → meiner! ✉️"
+                    },
+                    {
+                        sentence: "Außer ___ ist niemand da. (du)",
+                        options: ["dir", "dich", "du"],
+                        correct: "dir",
+                        hint: "Außer + DATIV! Du → dir",
+                        explanation: "'Except you, no one is there.' Außer dir! Du → dir in dativ! 👤"
+                    },
+                    {
+                        sentence: "Gegenüber ___ Haus ist ein Park. (unser)",
+                        options: ["unserem", "unseren", "unser"],
+                        correct: "unserem",
+                        hint: "Gegenüber + DATIV! Unser → unserem",
+                        explanation: "'Opposite our house is a park.' Gegenüber unserem Haus! 🏠"
+                    },
+                    {
+                        sentence: "Das Buch liegt auf ___ Tisch. (der Tisch - location!)",
+                        options: ["dem", "den", "der"],
+                        correct: "dem",
+                        hint: "Auf + DATIV (location, not movement)!",
+                        explanation: "'The book is on the table.' Location = dativ! Auf dem Tisch! 📚"
+                    },
+                    {
+                        sentence: "Die Katze sitzt in ___ Garten. (der Garten - location!)",
+                        options: ["dem", "den", "der"],
+                        correct: "dem",
+                        hint: "In + DATIV (location, not movement)!",
+                        explanation: "'The cat sits in the garden.' Location = dativ! Im Garten! 🐱"
+                    },
+                    {
+                        sentence: "Ich warte an ___ Bushaltestelle. (die Bushaltestelle - location!)",
+                        options: ["der", "die", "den"],
+                        correct: "der",
+                        hint: "An + DATIV (location, not movement)!",
+                        explanation: "'I'm waiting at the bus stop.' Location = dativ! An der Bushaltestelle! 🚌"
+                    },
+                    {
+                        sentence: "Er steht vor ___ Tür. (die Tür - location!)",
+                        options: ["der", "die", "den"],
+                        correct: "der",
+                        hint: "Vor + DATIV (location, not movement)!",
+                        explanation: "'He stands in front of the door.' Location = dativ! Vor der Tür! 🚪"
+                    },
+                    {
+                        sentence: "Die Kinder spielen hinter ___ Haus. (das Haus - location!)",
+                        options: ["dem", "das", "den"],
+                        correct: "dem",
+                        hint: "Hinter + DATIV (location, not movement)!",
+                        explanation: "'The children play behind the house.' Location = dativ! Hinter dem Haus! 🏠"
+                    },
+                    {
+                        sentence: "Ich telefoniere mit ___ Chef. (der Chef)",
+                        options: ["dem", "den", "der"],
+                        correct: "dem",
+                        hint: "Mit + DATIV! Der → dem",
+                        explanation: "'I'm talking on the phone with the boss.' Mit dem Chef! 📞"
+                    },
+                    {
+                        sentence: "Die Lampe hängt über ___ Tisch. (der Tisch - location!)",
+                        options: ["dem", "den", "der"],
+                        correct: "dem",
+                        hint: "Über + DATIV (location, not movement)!",
+                        explanation: "'The lamp hangs over the table.' Location = dativ! Über dem Tisch! 💡"
+                    }
+                ]
             }
         };
 
@@ -1739,6 +2526,13 @@
             document.getElementById('score').textContent = '0';
             document.getElementById('streak').textContent = '0';
             
+            // Show help button only for Chapter 11 (Dativ)
+            if (chapterNum === 11) {
+                document.getElementById('help-btn').classList.add('show');
+            } else {
+                document.getElementById('help-btn').classList.remove('show');
+            }
+            
             loadQuestion();
         }
 
@@ -1747,6 +2541,19 @@
             document.getElementById('chapter-select').style.display = 'block';
             document.getElementById('game-area').style.display = 'block';
             document.getElementById('game-over').classList.remove('show');
+            document.getElementById('help-btn').classList.remove('show');
+            document.getElementById('help-modal').classList.remove('show');
+        }
+
+        function toggleHelp() {
+            const modal = document.getElementById('help-modal');
+            modal.classList.toggle('show');
+        }
+
+        function closeHelpIfOutside(event) {
+            if (event.target.id === 'help-modal') {
+                toggleHelp();
+            }
         }
 
         function loadQuestion() {
