@@ -2509,11 +2509,22 @@
         let streak = 0;
         let answered = false;
 
+        // Shuffle array function
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
         function startChapter(chapterNum) {
             if (!chapters[chapterNum]) return;
             
             currentChapter = chapterNum;
-            questions = chapters[chapterNum].questions;
+            // Shuffle questions for random order each time
+            questions = shuffleArray(chapters[chapterNum].questions);
             currentQuestion = 0;
             score = 0;
             streak = 0;
@@ -2655,7 +2666,8 @@
             currentQuestion = 0;
             score = 0;
             streak = 0;
-            questions = chapters[currentChapter].questions;
+            // Shuffle questions again for new order
+            questions = shuffleArray(chapters[currentChapter].questions);
             document.getElementById('game-area').style.display = 'block';
             document.getElementById('game-over').classList.remove('show');
             document.getElementById('score').textContent = '0';
